@@ -6,14 +6,13 @@ import pickle as P
 import PRPGD
 import MainMenuGUI as MMGUI
 from interpolator import *
+import VisualSprites as VS
 #import VisualSprites as VS
 
 #Constants
-GRAVITY = -1.8
 GAMESTATE = 'MAIN_MENU'
 SCREENRECT = pygame.Rect(0,0,600,800)
 FIRE = 5
-SECONDS = 4
 #define our sprite groups and add them into super constructors to initiate
 all = pygame.sprite.RenderUpdates()
 shots = pygame.sprite.Group()
@@ -38,85 +37,6 @@ manager = pygame_gui.UIManager((SCREENRECT.size))
 spawn_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((0, 0), (100, 50)),text='Spawn Enemey',manager=manager)
 screen = pygame.display.set_mode(SCREENRECT.size)
 #Init classes
-'''==============================
-    This class handles all Visual Sprites and their respective movement.
-    Sprites: |1| Vamp Sprites:
-                Blue Sprites should spawn on the enemy within the area of the enemy image.They should loop outward and then toward the player,
-                once they reach the player they should disappear. When they reach the player the vamp effecton life leech should apply for the amount of damage
-                done to the enemy.
-             |2| Coin Sprites: pictures of coins that should explode out of enemies and land somewhere +10 units away from the enemies previous image location
-             |3| NextSprite:
-             |4| NextSprite:
-=============================='''
-
-
-class VampSprite(pygame.sprite.Sprite):
-    def __init__(self,Enemy,all, Vsprites,player):
-        super().__init__(all,Vsprites)
-        self.player = player
-        self.enemy = Enemy
-        self.image = pygame.image.load("Images//VisualSprites//VampSprite.png")
-        self.rect = self.image.get_rect(center=(self.enemy.rect.x,self.enemy.rect.y))
-        self.line = Interpolator(
-                                 self.enemy.rect.center,
-                                 self.player.rect.center,
-                                 2,
-                                 clock.get_fps(),
-                                 1,
-                                 1
-                                 )
-
-
-
-    def update_interp(self):
-        self.line = Interpolator(
-                                    self.line.pos,
-                                    self.player.rect.center,
-                                    0.5,
-                                    clock.get_fps(),
-                                    1,
-                                    0.5
-                                    )
-    def update(self):
-        print('updating')
-        if self.rect.y >= 500:
-            if self.line.stop != self.player.rect.center:
-                self.update_interp()
-        self.rect.center = self.line.next()
-
-class CoinSprite(pygame.sprite.Sprite):
-
-    def __init__(self,Enemy, all, Vsprites,player):
-        super().__init__(all,Vsprites)
-        self.player = player
-        self.enemy = Enemy
-        self.image = pygame.image.load("Images//VisualSprites//dollar.png")
-        self.rect = self.image.get_rect(center=(self.enemy.rect.x,self.enemy.rect.y))
-        self.line = Interpolator(
-                                 self.enemy.rect.center,
-                                 self.player.rect.center,
-                                 4,
-                                 clock.get_fps(),
-                                 2,
-                                 1
-                                 )
-
-    def update_interp(self):
-        self.line = Interpolator(
-                                 self.line.pos,
-                                 self.player.rect.center,
-                                 0.5,
-                                 clock.get_fps(),
-                                 1,
-                                 0.5
-                                 )
-    def update(self):
-        print('updating')
-        if self.rect.y >= 500:
-            if self.line.stop != self.player.rect.center:
-                self.update_interp()
-        self.rect.center = self.line.next()
-
 
 class Player(pygame.sprite.Sprite):
     #Base player class that handles movement and a method for getting the objects pos(gunpos)
@@ -299,7 +219,8 @@ def main():
 
     menu = MMGUI.MAINMENU(manager,Menu)
     menu.PrePlayScreen()
-    #Create starting Sprites
+
+    #create pre play screen and init starting sprites
     while menu.gamestate == 'Main Menu':
         time_delta = clock.tick(60)
         for event in pygame.event.get():
@@ -332,6 +253,8 @@ def main():
     paused = False
     player = Player()
     spawner = Spawner(3)
+
+    #Main play while loop when paused
     while menu.gamestate == 'Play':
         time_delta = clock.tick(60)
         for event in pygame.event.get():
@@ -443,7 +366,7 @@ def main():
             continue
 
         else:
-            #process GUI events in event loop
+            #Main while loop when not paused
             manager.process_events(event)
             manager.update(time_delta)
 
@@ -472,7 +395,7 @@ def main():
                         enemy.kill()
                         #print("Total Score:",player.rpgData.TotalScore)
                         player.TotalScoreLabel.set_text("Total Score:" + str(player.rpgData.TotalScore))
-                        coinS = CoinSprite(enemy,all,Vsprites,player)
+                        coinS = VS.CoinSprite(enemy,all,Vsprites,player)
 
                 else:
                     player.rpgData.XPforScore(enemy.Score)
@@ -483,7 +406,7 @@ def main():
 
                 if player.current_health < player.health_capacity:
                     LeechedHP = float(round((player.rpgData.LifeLeech / 100) * (abs(enemy.HP - player.rpgData.Damage)),2))
-                    vampS = VampSprite(enemy,all,Vsprites,player)
+                    vampS = VS.VampSprite(enemy,all,Vsprites,player)
                     player.current_health += round(LeechedHP, 2)
                     print(LeechedHP)
                     print(player.current_health)

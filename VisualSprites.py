@@ -1,5 +1,5 @@
 import pygame
-import PGTest2 as PG2
+from interpolator import *
 
 '''==============================
     This class handles all Visual Sprites and their respective movement.
@@ -11,45 +11,71 @@ import PGTest2 as PG2
              |3| NextSprite:
              |4| NextSprite:
 =============================='''
-NEW_MS = PG2.NEW_MS
 
-class VampSprites(pygame.sprite.Sprite):
-    def __init__(self,EnemyX,EnemyY, all, Vsprites,player):
+
+class VampSprite(pygame.sprite.Sprite):
+    def __init__(self,Enemy,all, Vsprites,player):
         super().__init__(all,Vsprites)
-        self.speedX = (0.5**2)
-        self.speedY = 1
         self.player = player
-        self.enemyX = EnemyX
-        self.enemyY = EnemyY
+        self.enemy = Enemy
         self.image = pygame.image.load("Images//VisualSprites//VampSprite.png")
-        self.rect = self.image.get_rect(center=(self.enemyX,self.enemyY))
-        print('Spawned')
+        self.rect = self.image.get_rect(center=(self.enemy.rect.x,self.enemy.rect.y))
+        self.line = Interpolator(
+                                 self.enemy.rect.center,
+                                 self.player.rect.center,
+                                 2,
+                                 60,
+                                 1,
+                                 1
+                                 )
 
+
+
+    def update_interp(self):
+        self.line = Interpolator(
+                                    self.line.pos,
+                                    self.player.rect.center,
+                                    0.5,
+                                    60,
+                                    1,
+                                    0.5
+                                    )
     def update(self):
-        if self.rect.x < self.player.rect.x:
-            self.rect.move_ip(self.speedX,self.speedY)
-        elif self.rect.x > self.player.rect.x:
-            self.rect.move_ip(-self.speedX,self.speedY)
-        else:
-            self.rect.move_ip(self.speedX,self.speedY)
-        self.speedX += 0.1
-        self.speedY += 0.1
+        print('updating')
+        if self.rect.y >= 500:
+            if self.line.stop != self.player.rect.center:
+                self.update_interp()
+        self.rect.center = self.line.next()
 
 class CoinSprite(pygame.sprite.Sprite):
-    def __init__(self,EnemyX,EnemyY, all, Vsprites,player):
 
+    def __init__(self,Enemy, all, Vsprites,player):
         super().__init__(all,Vsprites)
         self.player = player
-        self.enemyX = EnemyX
-        self.enemyY = EnemyY
+        self.enemy = Enemy
         self.image = pygame.image.load("Images//VisualSprites//dollar.png")
-        self.rect = self.image.get_rect(center=(self.enemyX,self.enemyY))
-        print('Spawned')
+        self.rect = self.image.get_rect(center=(self.enemy.rect.x,self.enemy.rect.y))
+        self.line = Interpolator(
+                                 self.enemy.rect.center,
+                                 self.player.rect.center,
+                                 4,
+                                 60,
+                                 2,
+                                 1
+                                 )
 
+    def update_interp(self):
+        self.line = Interpolator(
+                                 self.line.pos,
+                                 self.player.rect.center,
+                                 0.5,
+                                 60,
+                                 1,
+                                 0.5
+                                 )
     def update(self):
-        if self.rect.x < self.player.rect.x:
-            self.rect.move_ip(1,2)
-        elif self.rect.x > self.player.rect.x:
-            self.rect.move_ip(-1,2)
-        else:
-            self.rect.move_ip(0,2)
+        print('updating')
+        if self.rect.y >= 500:
+            if self.line.stop != self.player.rect.center:
+                self.update_interp()
+        self.rect.center = self.line.next()
