@@ -1,5 +1,6 @@
 import sys, random, math
-import pygame, pygame_gui
+import pygame
+import pygame_gui
 import pickle as P
 #Made Classes/Files
 import PRPGD
@@ -67,22 +68,21 @@ class VampSprite(pygame.sprite.Sprite):
 
 
 
-        def update_interp(self):
-            self.line = Interpolator(
-                                     self.line.pos,
-                                     self.player.rect.center,
-                                     0.5,
-                                     clock.get_fps(),
-                                     1,
-                                     0.5
-                                     )
-
-        def update(self):
-            print('updating')
-            if self.rect.y >= 500:
-                if self.line.stop != self.player.rect.center:
-                    self.update_interp()
-            self.rect.center = self.line.next()
+    def update_interp(self):
+        self.line = Interpolator(
+                                    self.line.pos,
+                                    self.player.rect.center,
+                                    0.5,
+                                    clock.get_fps(),
+                                    1,
+                                    0.5
+                                    )
+    def update(self):
+        print('updating')
+        if self.rect.y >= 500:
+            if self.line.stop != self.player.rect.center:
+                self.update_interp()
+        self.rect.center = self.line.next()
 
 class CoinSprite(pygame.sprite.Sprite):
 
