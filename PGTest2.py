@@ -62,7 +62,7 @@ class VampSprite(pygame.sprite.Sprite):
                                  self.player.rect.center,
                                  2,
                                  clock.get_fps(),
-                                 2,
+                                 1,
                                  1
                                  )
 
@@ -95,7 +95,7 @@ class CoinSprite(pygame.sprite.Sprite):
         self.line = Interpolator(
                                  self.enemy.rect.center,
                                  self.player.rect.center,
-                                 2,
+                                 4,
                                  clock.get_fps(),
                                  2,
                                  1
