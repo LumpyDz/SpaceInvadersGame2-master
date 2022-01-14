@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Images",
-    "\\Images\\Explosion2"
+    "\\Images\\VisualSprites",
+    "\\Images\\VisualSprites\\RotatingCoin"
   ],
-  "SelectedNode": "\\Images\\Explosion2\\tile024.png",
+  "SelectedNode": "\\Images\\VisualSprites\\RotatingCoin\\tile000.png",
   "PreviewInSolutionExplorer": false
 }

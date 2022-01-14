@@ -52,7 +52,11 @@ class CoinSprite(pygame.sprite.Sprite):
         super().__init__(all,Vsprites)
         self.player = player
         self.enemy = Enemy
-        self.image = pygame.image.load("Images//VisualSprites//dollar.png")
+        self.Images = [pygame.image.load("Images//VisualSprites//RotatingCoin//tile000.png"),pygame.image.load("Images//VisualSprites//RotatingCoin//tile001.png"),pygame.image.load("Images//VisualSprites//RotatingCoin//tile002.png"),
+                       pygame.image.load("Images//VisualSprites//RotatingCoin//tile003.png"),pygame.image.load("Images//VisualSprites//RotatingCoin//tile004.png"),pygame.image.load("Images//VisualSprites//RotatingCoin//tile005.png")]
+        self.index = 0
+        self.count = 0
+        self.image = self.Images[self.index]  #pygame.image.load("Images//VisualSprites//dollar.png")
         self.rect = self.image.get_rect(center=(self.enemy.rect.x,self.enemy.rect.y))
         self.line = Interpolator(
                                  self.enemy.rect.center,
@@ -73,10 +77,18 @@ class CoinSprite(pygame.sprite.Sprite):
                                  0.5
                                  )
     def update(self):
-        if self.rect.y >= 500:
-            if self.line.stop != self.player.rect.center:
-                self.update_interp()
-        self.rect.center = self.line.next()
+        self.count += 1
+        if self.count == 5:
+            self.index += 1
+            self.count = 0
+        if self.index >= len(self.Images):
+            self.index = 0
+        else:
+            self.image = self.Images[self.index]
+            if self.rect.y >= 500:
+                if self.line.stop != self.player.rect.center:
+                    self.update_interp()
+            self.rect.center = self.line.next()
 
 class Explosion(pygame.sprite.Sprite):
     def __init__(self, all, Vsprites,Enemy):
