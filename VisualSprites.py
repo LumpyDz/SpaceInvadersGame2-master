@@ -8,7 +8,7 @@ from interpolator import *
                 once they reach the player they should disappear. When they reach the player the vamp effecton life leech should apply for the amount of damage
                 done to the enemy.
              |2| Coin Sprites: pictures of coins that should explode out of enemies and land somewhere +10 units away from the enemies previous image location
-             |3| NextSprite:
+             |3| Explosion:
              |4| NextSprite:
 =============================='''
 
@@ -79,3 +79,24 @@ class CoinSprite(pygame.sprite.Sprite):
             if self.line.stop != self.player.rect.center:
                 self.update_interp()
         self.rect.center = self.line.next()
+
+class Explosion(pygame.sprite.Sprite):
+    def __init__(self, all, Vsprites,Enemy):
+        super().__init__(all,Vsprites)
+        self.enemy = Enemy
+        self.Images = [pygame.image.load('Images\\Explosion2\\tile000.png'),pygame.image.load('Images\\Explosion2\\tile001.png'),pygame.image.load('Images\\Explosion2\\tile002.png'),pygame.image.load('Images\\Explosion2\\tile003.png'),pygame.image.load('Images\\Explosion2\\tile004.png'),
+             pygame.image.load('Images\\Explosion2\\tile005.png'),pygame.image.load('Images\\Explosion2\\tile006.png'),pygame.image.load('Images\\Explosion2\\tile007.png'),pygame.image.load('Images\\Explosion2\\tile008.png'),pygame.image.load('Images\\Explosion2\\tile009.png'),
+             pygame.image.load('Images\\Explosion2\\tile010.png'),pygame.image.load('Images\\Explosion2\\tile011.png'),pygame.image.load('Images\\Explosion2\\tile012.png'),pygame.image.load('Images\\Explosion2\\tile013.png'),pygame.image.load('Images\\Explosion2\\tile014.png'),
+             pygame.image.load('Images\\Explosion2\\tile015.png'),pygame.image.load('Images\\Explosion2\\tile016.png'),pygame.image.load('Images\\Explosion2\\tile017.png'),pygame.image.load('Images\\Explosion2\\tile018.png'),pygame.image.load('Images\\Explosion2\\tile019.png'),
+             pygame.image.load('Images\\Explosion2\\tile020.png'),pygame.image.load('Images\\Explosion2\\tile021.png'),pygame.image.load('Images\\Explosion2\\tile022.png'),pygame.image.load('Images\\Explosion2\\tile023.png'),pygame.image.load('Images\\Explosion2\\tile024.png')]
+        self.index = 0
+        self.image = self.Images[self.index]
+        self.rect = self.image.get_rect(center = self.enemy.rect.center)
+
+    def update(self):
+        self.index += 1
+ 
+        if self.index >= len(self.Images):
+            self.kill()
+        else:
+            self.image = self.Images[self.index]

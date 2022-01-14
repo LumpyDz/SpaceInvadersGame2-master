@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Images",
+    "\\Images\\Explosion2"
   ],
-  "SelectedNode": "\\PGTest2.py",
+  "SelectedNode": "\\Images\\Explosion2\\tile024.png",
   "PreviewInSolutionExplorer": false
 }

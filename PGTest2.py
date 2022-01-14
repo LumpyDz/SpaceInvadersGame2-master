@@ -37,9 +37,6 @@ manager = pygame_gui.UIManager((SCREENRECT.size))
 spawn_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((0, 0), (100, 50)),text='Spawn Enemey',manager=manager)
 screen = pygame.display.set_mode(SCREENRECT.size)
 
-#SpriteSheetLists
-#Explosion = [pgame.image.load('Images\\Explosion2\\tile000'),pgame.image.load('Images\\Explosion2\\tile001'),pgame.image.load('Images\\Explosion2\\tile002'),pgame.image.load('Images\\Explosion2\\tile003'),pgame.image.load('Images\\Explosion2\\tile004')
-
 #Init classes
 
 class Player(pygame.sprite.Sprite):
@@ -401,6 +398,7 @@ def main():
                         #print("Total Score:",player.rpgData.TotalScore)
                         player.TotalScoreLabel.set_text("Total Score:" + str(player.rpgData.TotalScore))
                         coinS = VS.CoinSprite(enemy,all,Vsprites,player)
+                        explosion = VS.Explosion(all,Vsprites,enemy)
 
                 else:
                     player.rpgData.XPforScore(enemy.Score)
