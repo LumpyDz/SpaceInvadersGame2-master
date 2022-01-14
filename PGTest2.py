@@ -409,13 +409,13 @@ def main():
                     coinS = VS.CoinSprite(enemy,all,Vsprites,player)
 
                 if player.current_health < player.health_capacity:
-                    LeechedHP = float(round((player.rpgData.LifeLeech / 100) * (abs(enemy.HP - player.rpgData.Damage)),2))
+                    #LeechedHP = float(round((player.rpgData.LifeLeech / 100) * (abs(enemy.HP - player.rpgData.Damage)),2))
                     vampS = VS.VampSprite(enemy,all,Vsprites,player)
-                    player.current_health += round(LeechedHP, 2)
-                    print(LeechedHP)
-                    print(player.current_health)
-                    player.HealthBar = pygame_gui.elements.ui_screen_space_health_bar.UIScreenSpaceHealthBar(relative_rect=pygame.Rect((10,780),(100,20)),
-                                                                                                                        manager=manager,sprite_to_monitor=player)
+                    #player.current_health += round(LeechedHP, 2)
+                    #print(LeechedHP)
+                    #print(player.current_health)
+                    #player.HealthBar = pygame_gui.elements.ui_screen_space_health_bar.UIScreenSpaceHealthBar(relative_rect=pygame.Rect((10,780),(100,20)),
+                                                                                                                        #manager=manager,sprite_to_monitor=player)
             #Player for enemy shots
             for player in pygame.sprite.groupcollide(playerG, enemyshots,0,1).keys():
                 player.current_health -= Enemy.damage
@@ -427,8 +427,9 @@ def main():
                     #menu.gamestate = 'Retry'
                     menu.RetryScreen()
             #VisualSprites
-            for player in pygame.sprite.groupcollide(playerG, Vsprites,0,1).keys():
-                print('collided')
+            for sprite in pygame.sprite.groupcollide(playerG, Vsprites,0,1).keys():
+                print('Collided')
+                
             #Spawner
             #spawner = Spawner(10,True)
 

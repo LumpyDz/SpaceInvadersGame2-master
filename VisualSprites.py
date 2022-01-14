@@ -41,7 +41,6 @@ class VampSprite(pygame.sprite.Sprite):
                                     0.5
                                     )
     def update(self):
-        print('updating')
         if self.rect.y >= 500:
             if self.line.stop != self.player.rect.center:
                 self.update_interp()
@@ -74,7 +73,6 @@ class CoinSprite(pygame.sprite.Sprite):
                                  0.5
                                  )
     def update(self):
-        print('updating')
         if self.rect.y >= 500:
             if self.line.stop != self.player.rect.center:
                 self.update_interp()
