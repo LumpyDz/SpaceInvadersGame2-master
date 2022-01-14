@@ -56,7 +56,6 @@ class Player(pygame.sprite.Sprite):
         self.HealthBar = pygame_gui.elements.ui_screen_space_health_bar.UIScreenSpaceHealthBar(relative_rect=pygame.Rect((10,780),(100,20)),
                                                                                                     manager=manager,sprite_to_monitor=Player)
         self.TotalScoreLabel = pygame_gui.elements.ui_label.UILabel(relative_rect=pygame.Rect((450,10),(150,20)),text=('Total Score: ' + str(self.rpgData.getTotalScore())),manager=manager)
-
     def Move(self, direction):
         self.rect.x += (direction * self.speed)
         if self.rect.left < 0:
@@ -427,8 +426,11 @@ def main():
                     #menu.gamestate = 'Retry'
                     menu.RetryScreen()
             #VisualSprites
-            for sprite in pygame.sprite.groupcollide(playerG, Vsprites,0,1).keys():
+            for sprite in pygame.sprite.groupcollide(Vsprites, playerG,1,0).keys():
                 print('Collided')
+                print(type(sprite))
+                if type(sprite) == type(coinS):
+                    print('Coin')
                 
             #Spawner
             #spawner = Spawner(10,True)
