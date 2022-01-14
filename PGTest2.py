@@ -56,6 +56,8 @@ class Player(pygame.sprite.Sprite):
         self.HealthBar = pygame_gui.elements.ui_screen_space_health_bar.UIScreenSpaceHealthBar(relative_rect=pygame.Rect((10,780),(100,20)),
                                                                                                     manager=manager,sprite_to_monitor=Player)
         self.TotalScoreLabel = pygame_gui.elements.ui_label.UILabel(relative_rect=pygame.Rect((450,10),(150,20)),text=('Total Score: ' + str(self.rpgData.getTotalScore())),manager=manager)
+        self.CoinLabel = pygame_gui.elements.ui_label.UILabel(relative_rect=pygame.Rect((450,30),(150,20)),text=('$$$: ' + str(self.rpgData.Coins)),manager=manager)
+
     def Move(self, direction):
         self.rect.x += (direction * self.speed)
         if self.rect.left < 0:
@@ -287,8 +289,8 @@ def main():
                         player.rpgData.Health += 1
                         player.health_capacity += 1
                         player.current_health += 1
-                        player.HealthBar = pygame_gui.elements.ui_screen_space_health_bar.UIScreenSpaceHealthBar(relative_rect=pygame.Rect((10,780),(100,20)),
-                                                                                                                            manager=manager,sprite_to_monitor=player)
+                        player.HealthBar.update(time_delta) #= pygame_gui.elements.ui_screen_space_health_bar.UIScreenSpaceHealthBar(relative_rect=pygame.Rect((10,780),(100,20)),
+                                                                                                                           # manager=manager,sprite_to_monitor=player)
                         player.rpgData.StatPoints -= 1
                         player.rpgData.HealthLabel.set_text('Health Bonus: '+ str(player.rpgData.Health))
                         player.rpgData.StatPointsLabel.set_text('Stat Points: ' + str(player.rpgData.StatPoints))
@@ -403,18 +405,13 @@ def main():
                     player.rpgData.XPforScore(enemy.Score)
                     player.rpgData.TotalScore += enemy.Score
                     enemy.kill()
-                    #print("Total Score:",player.rpgData.TotalScore)
                     player.TotalScoreLabel.set_text("Total Score:" + str(player.rpgData.TotalScore))
                     coinS = VS.CoinSprite(enemy,all,Vsprites,player)
+                    explosion = VS.Explosion(all,Vsprites,enemy)
 
                 if player.current_health < player.health_capacity:
-                    #LeechedHP = float(round((player.rpgData.LifeLeech / 100) * (abs(enemy.HP - player.rpgData.Damage)),2))
                     vampS = VS.VampSprite(enemy,all,Vsprites,player)
-                    #player.current_health += round(LeechedHP, 2)
-                    #print(LeechedHP)
-                    #print(player.current_health)
-                    #player.HealthBar = pygame_gui.elements.ui_screen_space_health_bar.UIScreenSpaceHealthBar(relative_rect=pygame.Rect((10,780),(100,20)),
-                                                                                                                        #manager=manager,sprite_to_monitor=player)
+                   
             #Player for enemy shots
             for player in pygame.sprite.groupcollide(playerG, enemyshots,0,1).keys():
                 player.current_health -= Enemy.damage
@@ -425,12 +422,18 @@ def main():
                     player.kill()
                     #menu.gamestate = 'Retry'
                     menu.RetryScreen()
+
             #VisualSprites
             for sprite in pygame.sprite.groupcollide(Vsprites, playerG,1,0).keys():
-                print('Collided')
-                print(type(sprite))
                 if type(sprite) == type(coinS):
+                    player.rpgData.Coins += 1
+                    player.CoinLabel.set_text('$$$:' + str(player.rpgData.Coins))
                     print('Coin')
+                elif type(sprite) == type(vampS):
+                    if player.current_health <player.health_capacity:
+                        LeechedHP = 1
+                        player.current_health += LeechedHP
+                        player.HealthBar.update(time_delta)
                 
             #Spawner
             #spawner = Spawner(10,True)
