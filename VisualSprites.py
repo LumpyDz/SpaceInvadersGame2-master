@@ -58,7 +58,7 @@ class CoinSprite(pygame.sprite.Sprite):
         self.line = Interpolator(
                                  self.enemy.rect.center,
                                  self.player.rect.center,
-                                 4,
+                                 3,
                                  60,
                                  2,
                                  1

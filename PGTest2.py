@@ -36,6 +36,10 @@ manager = pygame_gui.UIManager((SCREENRECT.size))
 #GUi element
 spawn_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((0, 0), (100, 50)),text='Spawn Enemey',manager=manager)
 screen = pygame.display.set_mode(SCREENRECT.size)
+
+#SpriteSheetLists
+#Explosion = [pgame.image.load('Images\\Explosion2\\tile000'),pgame.image.load('Images\\Explosion2\\tile001'),pgame.image.load('Images\\Explosion2\\tile002'),pgame.image.load('Images\\Explosion2\\tile003'),pgame.image.load('Images\\Explosion2\\tile004')
+
 #Init classes
 
 class Player(pygame.sprite.Sprite):
@@ -382,6 +386,7 @@ def main():
                 shot = Shot(player.gunpos())
             player.reloading = fireing
             #Collision detection
+
             #Enemy for player shots
             for enemy in pygame.sprite.groupcollide(enemies,shots,0,1).keys():
                 if enemy.HP > abs((enemy.HP - player.rpgData.getDamage())):
@@ -403,6 +408,7 @@ def main():
                     enemy.kill()
                     #print("Total Score:",player.rpgData.TotalScore)
                     player.TotalScoreLabel.set_text("Total Score:" + str(player.rpgData.TotalScore))
+                    coinS = VS.CoinSprite(enemy,all,Vsprites,player)
 
                 if player.current_health < player.health_capacity:
                     LeechedHP = float(round((player.rpgData.LifeLeech / 100) * (abs(enemy.HP - player.rpgData.Damage)),2))
