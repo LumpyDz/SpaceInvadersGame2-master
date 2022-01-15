@@ -33,7 +33,7 @@ Shoot = pygame.event.Event(pygame.USEREVENT + 2)
 pygame.time.set_timer(Shoot, 500)
 #Get current MS
 #GUI Manager
-manager = pygame_gui.UIManager((SCREENRECT.size))
+manager = pygame_gui.UIManager((SCREENRECT.size), 'MainTheme.json')
 #GUi element
 spawn_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((0, 0), (100, 50)),text='Spawn Enemey',manager=manager)
 screen = pygame.display.set_mode(SCREENRECT.size)

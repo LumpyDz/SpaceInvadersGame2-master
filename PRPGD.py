@@ -1,4 +1,5 @@
 import pygame_gui, pygame
+from pygame_gui.core.ui_element import ObjectID
 
 class RPGData():
     def __init__(self):
@@ -36,7 +37,7 @@ class RPGData():
         #Main Panel
         self.StatPanel = pygame_gui.elements.ui_panel.UIPanel(relative_rect=pygame.Rect((100,100),(400,400)), starting_layer_height=0,manager=self.manager)
         #Buttons
-        self.DamageButton = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((120,120),(100,50)),text='Damage + 1',manager=self.manager,starting_height=1)
+        self.DamageButton = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((120,120),(140,50)),text='Damage + 1',manager=self.manager,starting_height=1,object_id='#DamageButton')
         self.HealthButton = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((120,200),(140,50)),text='Health + 1',manager=self.manager,starting_height=1)
         self.LifeLeechButton = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((120,280),(140,50)),text='Life Leech + 1',manager=self.manager,starting_height=1)
         #stat Labels
