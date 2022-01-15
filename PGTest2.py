@@ -7,6 +7,7 @@ import PRPGD
 import MainMenuGUI as MMGUI
 from interpolator import *
 import VisualSprites as VS
+import UtilityClasses as UC
 #import VisualSprites as VS
 
 #Constants
@@ -400,6 +401,7 @@ def main():
                         player.TotalScoreLabel.set_text("Total Score:" + str(player.rpgData.TotalScore))
                         coinS = VS.CoinSprite(enemy,all,Vsprites,player)
                         explosion = VS.Explosion(all,Vsprites,enemy)
+                        HitNumber = UC.HitNumbers(enemy, player, False, all, Vsprites)
 
                 else:
                     player.rpgData.XPforScore(enemy.Score)
@@ -408,6 +410,7 @@ def main():
                     player.TotalScoreLabel.set_text("Total Score:" + str(player.rpgData.TotalScore))
                     coinS = VS.CoinSprite(enemy,all,Vsprites,player)
                     explosion = VS.Explosion(all,Vsprites,enemy)
+                    HitNumber = UC.HitNumbers(enemy, player, False, all, Vsprites)
 
                 if player.current_health < player.health_capacity:
                     vampS = VS.VampSprite(enemy,all,Vsprites,player)

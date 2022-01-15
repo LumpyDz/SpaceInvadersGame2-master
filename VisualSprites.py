@@ -78,7 +78,7 @@ class CoinSprite(pygame.sprite.Sprite):
                                  )
     def update(self):
         self.count += 1
-        if self.count == 5:
+        if self.count == 3:
             self.index += 1
             self.count = 0
         if self.index >= len(self.Images):
