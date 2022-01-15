@@ -268,7 +268,7 @@ def main():
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == spawn_button:
-                        Enemy(4)
+                        print('SpawnPressed')
                     if event.ui_element == menu.PlayAgain:
                         menu.MenuPanel.kill()
                         Player.current_health = Player.health_capacity
@@ -280,18 +280,19 @@ def main():
                         paused = not paused
                         menu.KillPauseScreen()
                     #Stat Menu Button Events
-                    elif event.ui_element == player.rpgData.DamageButton and player.rpgData.StatPoints >= 1:
-                        player.rpgData.Damage += 1
-                        player.rpgData.StatPoints -= 1
-                        player.rpgData.DamageLabel.set_text('Damage Bonus: ' + str(player.rpgData.Damage))
-                        player.rpgData.StatPointsLabel.set_text('Stat Points: ' + str(player.rpgData.StatPoints))
+                    elif event.ui_element == player.rpgData.DamageButton and hasattr(player.rpgData, 'DamageButton'):
+                        if player.rpgData.StatPoints >= 1:
+                            player.rpgData.Damage += 1
+                            player.rpgData.StatPoints -= 1
+                            player.rpgData.DamageLabel.set_text('Damage Bonus: ' + str(player.rpgData.Damage))
+                            player.rpgData.StatPointsLabel.set_text('Stat Points: ' + str(player.rpgData.StatPoints))
 
                     elif event.ui_element == player.rpgData.HealthButton and player.rpgData.StatPoints >= 1:
                         player.rpgData.Health += 1
                         player.health_capacity += 1
                         player.current_health += 1
-                        player.HealthBar.update(time_delta) #= pygame_gui.elements.ui_screen_space_health_bar.UIScreenSpaceHealthBar(relative_rect=pygame.Rect((10,780),(100,20)),
-                                                                                                                           # manager=manager,sprite_to_monitor=player)
+                        player.HealthBar = pygame_gui.elements.ui_screen_space_health_bar.UIScreenSpaceHealthBar(relative_rect=pygame.Rect((10,780),(100,20)),
+                                                                                                                            manager=manager,sprite_to_monitor=player)
                         player.rpgData.StatPoints -= 1
                         player.rpgData.HealthLabel.set_text('Health Bonus: '+ str(player.rpgData.Health))
                         player.rpgData.StatPointsLabel.set_text('Stat Points: ' + str(player.rpgData.StatPoints))
@@ -307,7 +308,7 @@ def main():
                         player.rpgData.HealthButton.disable()
                         player.rpgData.LifeLeechButton.disable()
 
-            #Global enemy fire event
+                #Global enemy fire event
             if event.type == pygame.USEREVENT + 2:
                 #sprite_list = enemies.sprites()
                 for enemy in enemies.sprites():
@@ -359,7 +360,6 @@ def main():
                     StatMenuOpen = False
                     paused = False
 
-                #    paused = not paused
         manager.process_events(event)
         manager.draw_ui(screen)
         manager.update(time_delta)

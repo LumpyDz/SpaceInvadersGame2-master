@@ -16,6 +16,9 @@ class RPGData():
         self.Damage = 2
         self.LifeLeech = 2
         self.StatPoints = 10
+        self.DamageButton = None
+        self.HealthButton = None
+        self.LifeLeechButton = None
 
     #Utility Functions
     def XPforScore(self, score):

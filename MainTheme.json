@@ -27,11 +27,24 @@
   },
   "#DamageButton": {
 
-    "misc": {
+    "colours": {
 
-      "shape": "rounded_rectangle"
+      "normal_bg": "#13F436"
+    },
 
+      "misc": {
+
+        "shape": "rounded_rectangle",
+        "shape_corner_radius": 5
+
+      }
+  },
+  "#PrePlayPanel": {
+
+    "background_image": {
+      "package": "Images.MenuImages",
+      "resource": "PrePlayBG.png"
     }
-  }
 
+  }
 }

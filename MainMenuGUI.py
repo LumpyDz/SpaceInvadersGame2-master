@@ -18,7 +18,7 @@ class MAINMENU(pygame.sprite.Sprite):
         self.Quit = pygame_gui.elements.ui_button.UIButton(relative_rect=pygame.Rect((150,200),(100,50)), text='Quit', manager=self.manager, container=self.MenuPanel)
 
     def PrePlayScreen(self):
-        self.PrePlayPanel = pygame_gui.elements.ui_panel.UIPanel(relative_rect=pygame.Rect((100,100),(400,400)), starting_layer_height=0,manager=self.manager)
+        self.PrePlayPanel = pygame_gui.elements.ui_panel.UIPanel(relative_rect=pygame.Rect((100,100),(400,400)), starting_layer_height=0,manager=self.manager,object_id='#PrePlayPanel')
         self.PlayButton = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.PrePlayPanel.rect.x,50), (200, 50)),text='New Game',manager=self.manager,container=self.PrePlayPanel)
         self.InfoButton = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.PrePlayPanel.rect.x, 100), (200, 50)),text='Info',manager=self.manager,container=self.PrePlayPanel)
         self.Quit = pygame_gui.elements.ui_button.UIButton(relative_rect=pygame.Rect((self.PrePlayPanel.rect.x,200),(200,50)), text='Quit', manager=self.manager, container=self.PrePlayPanel)

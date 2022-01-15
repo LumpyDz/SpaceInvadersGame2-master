@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
+    "",
     "\\Images",
-    "\\Images\\VisualSprites",
-    "\\Images\\VisualSprites\\RotatingCoin"
+    "\\Images\\UtilitySprites\\HitEffectFont"
   ],
+  "SelectedNode": "\\PRPGD.py",
   "PreviewInSolutionExplorer": false
 }
