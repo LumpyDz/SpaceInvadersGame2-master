@@ -43,8 +43,7 @@
 
     "images": {
       "background_image": {
-        "package": "data.images",
-        "resource": "PrePlayBG.png"
+        "path": "data/images/PrePlayBG.png"
       }
     },
     "misc": {

@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Images"
+    "\\data",
+    "\\data\\images",
+    "\\Images",
+    "\\Images\\MenuImages"
   ],
-  "SelectedNode": "\\PRPGD.py",
+  "SelectedNode": "\\data\\images",
   "PreviewInSolutionExplorer": false
 }

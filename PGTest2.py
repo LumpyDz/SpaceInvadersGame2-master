@@ -22,6 +22,7 @@ Menu = pygame.sprite.Group()
 enemyshots = pygame.sprite.Group()
 playerG = pygame.sprite.Group()
 Vsprites = pygame.sprite.Group()
+Usprites = pygame.sprite.Group()
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -33,10 +34,11 @@ Shoot = pygame.event.Event(pygame.USEREVENT + 2)
 pygame.time.set_timer(Shoot, 500)
 #Get current MS
 #GUI Manager
+screen = pygame.display.set_mode(SCREENRECT.size)
+
 manager = pygame_gui.UIManager((SCREENRECT.size), 'MainTheme.json')
 #GUi element
 spawn_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((0, 0), (100, 50)),text='Spawn Enemey',manager=manager)
-screen = pygame.display.set_mode(SCREENRECT.size)
 
 #Init classes
 
@@ -388,6 +390,7 @@ def main():
 
             #Enemy for player shots
             for enemy in pygame.sprite.groupcollide(enemies,shots,0,1).keys():
+                hitNumber = UC.HitNumbers(enemy,player,True,all,Usprites)
                 if enemy.HP > abs((enemy.HP - player.rpgData.getDamage())):
                     #player.rpgData.XPDamage(player.rpgData.getDamage(),enemy.HP)
                     enemy.HP -= player.rpgData.getDamage()
@@ -410,7 +413,7 @@ def main():
                     player.TotalScoreLabel.set_text("Total Score:" + str(player.rpgData.TotalScore))
                     coinS = VS.CoinSprite(enemy,all,Vsprites,player)
                     explosion = VS.Explosion(all,Vsprites,enemy)
-                    HitNumber = UC.HitNumbers(enemy, player, False, all, Vsprites)
+                    hitNumber = UC.HitNumbers(enemy, player, False, all, Usprites)
 
                 if player.current_health < player.health_capacity:
                     vampS = VS.VampSprite(enemy,all,Vsprites,player)

@@ -1,3 +1,5 @@
+import numpy as np
+from scipy import interpolate
 R"""
 interpolator.py
 
@@ -217,3 +219,5 @@ class Interpolator( object ):
   length = property( _get_length, doc='The length of the line. Read-only.' )
 
 # end interpolator
+
+
