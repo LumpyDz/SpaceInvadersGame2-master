@@ -1,3 +1,4 @@
+#Imports for particle sprites
 import pygame
 from interpolator import *
 
@@ -110,3 +111,5 @@ class Explosion(pygame.sprite.Sprite):
             self.kill()
         else:
             self.image = self.Images[self.index]
+
+#
