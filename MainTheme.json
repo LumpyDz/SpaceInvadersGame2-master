@@ -32,19 +32,23 @@
       "normal_bg": "#13F436"
     },
 
-      "misc": {
+    "misc": {
 
-        "shape": "rounded_rectangle",
-        "shape_corner_radius": 5
+      "shape": "rounded_rectangle",
+      "shape_corner_radius": 5
 
-      }
+    }
   },
   "#PrePlayPanel": {
 
-    "background_image": {
-      "package": "Images.MenuImages",
-      "resource": "PrePlayBG.png"
+    "images": {
+      "background_image": {
+        "package": "data.images",
+        "resource": "PrePlayBG.png"
+      }
+    },
+    "misc": {
+      "shape": "rounded_rectangle"
     }
-
   }
 }
